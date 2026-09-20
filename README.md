@@ -1,5 +1,7 @@
 # RegretNet: ein gelernter Mechanismus für die Kran-Auftragsvergabe – Streamlit-Demo
 
+**[→ Demo live ausprobieren](https://sebastianhanisch-regretnet-demo.streamlit.app/)**
+
 Achtes und **letztes** Stück der "Konzepte"-Reihe für die Website "Sebastian Hanisch – Operations
 Research und Machine Learning", **Multi-Agenten-Koordinations-Linie** - die **Fortsetzung von** [auction-demo](../auction-demo)
 (Wurzel der Linie: [contract-net-demo](../contract-net-demo)). Das Vehikel (Kran-Aufträge auf einer 1-D-Schiene, Makespan-Ziel) und die
