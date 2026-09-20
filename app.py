@@ -151,7 +151,7 @@ for row_start in range(0, len(preset_names), 4):
     preset_cols = st.columns(4)
     for col, name in zip(preset_cols, preset_names[row_start:row_start + 4]):
         with col:
-            st.button(name, use_container_width=True, on_click=apply_preset, args=(name,), help=C.PRESET_HELP.get(name))
+            st.button(name, width="stretch", on_click=apply_preset, args=(name,), help=C.PRESET_HELP.get(name))
 
 st.caption(
     "🔗 Die Adresszeile oben spiegelt Ihre aktuelle Konfiguration wider – einfach kopieren, "
@@ -196,7 +196,7 @@ with st.sidebar:
                        help="Gewicht der Rente im Designer-Ziel: hoch = geringere Überzahlung.")
         steps = st.select_slider("Trainingsschritte", options=C.LIVE_STEPS_CHOICES, key="steps_select")
         learn_seed = st.number_input("Lern-Seed", *bounds("learn_seed_input"), key="learn_seed_input", step=1)
-        st.button("🎲 Neuer Lern-Seed", use_container_width=True, on_click=randomize_seed)
+        st.button("🎲 Neuer Lern-Seed", width="stretch", on_click=randomize_seed)
     else:
         # Nur beim Live-Training wirksam: verborgen, die Werte bleiben erhalten.
         for key_ in ("kappa_slider", "mu_slider", "steps_select", "learn_seed_input"):
@@ -332,7 +332,7 @@ for name, meta in _manifest().items():
     if (meta["kind"], meta["n"], meta["k"]) == (kind, n_jobs, n_agents):
         m = meta["metrics"]
         family.append({"label": meta["description"], "gap_pct": m["gap_pct"], "pay_cost": m["pay_cost"], "regret": m["regret"]})
-st.plotly_chart(build_pareto(rows, family), use_container_width=True, key="pareto")
+st.plotly_chart(build_pareto(rows, family), width="stretch", key="pareto")
 st.caption(
     "Jeder Punkt ein Mechanismus: links unten ist gut (kleine Lücke, wenig Überzahlung), die **Punktgröße ist der Regret** (klein = wahrheitsgetreu). "
     + ("Blau: die vorberechneten gelernten Varianten dieser Größe mit verschiedenem Regret-Preis. " if family else "")
@@ -359,7 +359,7 @@ if source == LIVE_LABEL:
 elif source:
     st.caption(f"Vorberechnet ({C.WEIGHT_SPECS[source][3]}), Training dauerte {train_seconds} s lokal. Live trainieren lässt sich nur Typ B mit höchstens 27 Zuteilungen.")
 if history:
-    st.plotly_chart(build_training_curves(history), use_container_width=True, key="training_curves")
+    st.plotly_chart(build_training_curves(history), width="stretch", key="training_curves")
     st.caption(
         "Makespan-Lücke, Rente und der im Training geschätzte Regret je Schritt (Mittel über 50 Schritte). Die ersten 150 Schritte laufen ohne Regret-Term; danach "
         "steigt der Regret-Preis. Der **Trainings-Regret unterschätzt** den Regret auf Test-Daten (der Gegenspieler im Training ist schwächer)."
@@ -393,7 +393,7 @@ if kind == "B":
     if learned is not None:
         curves.append(("learned", "gelernt", _utility_curve(learned)))
         curves.append(("learned_rounded", "gelernt, gerundet", _utility_curve(learned.rounded_copy())))
-    st.plotly_chart(build_misreport_b(grid, curves, c_true, probe), use_container_width=True, key="misreport_b")
+    st.plotly_chart(build_misreport_b(grid, curves, c_true, probe), width="stretch", key="misreport_b")
     st.caption(
         "Nutzen von Agent %d gegen den Kostenfaktor, den er **meldet** (die anderen sind ehrlich). Ein wahrheitsgetreuer Mechanismus hat sein Maximum beim "
         "wahren Wert (gestrichelt); Pay-as-bid belohnt Aufblähen." % (probe + 1)
@@ -411,7 +411,7 @@ if kind == "B":
             learned_work = (softmax(logits) @ world.S[:, 0]).reshape(c1.shape)
         else:
             learned_work = np.full_like(exact_work, np.nan)
-        st.plotly_chart(build_allocation_map(gg, learned_work, exact_work), use_container_width=True, key="alloc_map")
+        st.plotly_chart(build_allocation_map(gg, learned_work, exact_work), width="stretch", key="alloc_map")
         st.caption(
             "Rechts die exakte Zuteilung: eine **Stufenfunktion** - je höher der eigene Kostenfaktor im Verhältnis zum anderen, desto weniger Arbeit "
             "(die Stufen liegen bei festen Verhältnissen der Faktoren). Links das gelernte Netz: die Stufen sind **verschmiert**, weil das Netz glatt ist "
@@ -435,7 +435,7 @@ else:
               ("boost", f"Boosted VCG, γ = {gamma:g}", _lambda_curve(hand("boost", gamma)))]
     if learned is not None:
         curves.append(("learned", "gelernt", _lambda_curve(learned)))
-    st.plotly_chart(build_misreport_a(lam_grid, curves, probe), use_container_width=True, key="misreport_a")
+    st.plotly_chart(build_misreport_a(lam_grid, curves, probe), width="stretch", key="misreport_a")
     st.caption(
         "Mittlerer Nutzen von Agent %d, wenn er **alle** seine Bündelgebote mit demselben Faktor λ skaliert (das gleichmäßige Gitter aus auction-demo). "
         "Beim gelernten Netz findet dieses Gitter fast nichts - das verteidigt das Training gezielt; die Gradientensuche über einzelne Bündel-Faktoren "
@@ -451,7 +451,7 @@ wall = _wall()
 if wall is None:
     st.caption("Die vorberechnete Wand-Tabelle fehlt (`weights/wall.json`).")
 elif st.session_state.get("wall_open"):
-    st.plotly_chart(build_wall_chart(wall["plain"]), use_container_width=True, key="wall_chart")
+    st.plotly_chart(build_wall_chart(wall["plain"]), width="stretch", key="wall_chart")
     st.table({
         "n, k": [f"{r['n']}, {r['k']}" for r in wall["plain"]],
         "Zuteilungen k^n": [r["n"] and _fmt_int(r["k"] ** r["n"]) for r in wall["plain"]],
