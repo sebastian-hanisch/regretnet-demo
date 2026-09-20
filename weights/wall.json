@@ -1,0 +1,37 @@
+{
+ "plain": [
+  {
+   "n": 3,
+   "k": 2,
+   "plain_gap": 0.4455350298685712,
+   "seconds": 3.5,
+   "learned_gap": 12.05225942397199,
+   "learned_regret": 1.8121107533604857
+  },
+  {
+   "n": 3,
+   "k": 3,
+   "plain_gap": 9.167685275509484,
+   "seconds": 4.4,
+   "learned_gap": 21.868181308157865,
+   "learned_regret": 0.3687335352621495
+  },
+  {
+   "n": 4,
+   "k": 2,
+   "plain_gap": 19.650326213463522,
+   "seconds": 4.1,
+   "learned_gap": 26.48236805212527,
+   "learned_regret": 2.99028086874681
+  },
+  {
+   "n": 4,
+   "k": 3,
+   "plain_gap": 19.347133842780817,
+   "seconds": 6.0,
+   "learned_gap": null,
+   "learned_regret": null
+  }
+ ],
+ "steps": 3000
+}
