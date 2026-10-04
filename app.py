@@ -191,7 +191,7 @@ with st.sidebar:
         st.caption("Für diese Kombination gibt es keinen gelernten Mechanismus (weder live noch vorberechnet).")
     if source == LIVE_LABEL:
         kappa = st.slider("Regret-Preis κmax", *bounds("kappa_slider"), key="kappa_slider",
-                          help="Obere Grenze des Regret-Preises: hoch = weniger Regret, aber schlechterer Makespan (Pareto-Knopf).")
+                          help="Obere Grenze des Regret-Preises: hoch = weniger Regret, aber höhere Zahlungen (Pareto-Knopf; der Makespan ändert sich dabei kaum).")
         mu = st.slider("Rentengewicht μ", *bounds("mu_slider"), key="mu_slider",
                        help="Gewicht der Rente im Designer-Ziel: hoch = geringere Überzahlung.")
         steps = st.select_slider("Trainingsschritte", options=C.LIVE_STEPS_CHOICES, key="steps_select")
@@ -296,7 +296,7 @@ if code == "regret_high":
     st.warning(
         f"⚠️ **Der gelernte Mechanismus ist weit von wahrheitsgetreu**: Agenten gewinnen durch Fehlmeldung im Mittel {data['regret']:.2f} min "
         f"(Untergrenze). Lücke {data['gap']:.1f} %, Zahlung/Kosten {data['pay_cost']:.2f}. Mehr Regret-Druck (größeres κ, längeres Training) senkt "
-        "den Regret, kostet aber Makespan."
+        "den Regret, kostet aber Überzahlung (Typ B) bzw. Makespan (Typ A)."
     )
 elif code == "dominated_by_truthful":
     st.warning(
@@ -515,6 +515,6 @@ st.markdown("---")
 
 st.caption(
     "Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://sebastianhanisch.net) – "
-    "Operations Research und Machine Learning. Interesse an einer maßgeschneiderten Lösung für "
-    "Ihr Unternehmen? [Kontakt aufnehmen](https://sebastianhanisch.net/kontakt.html)"
+    "Operations Research und Machine Learning ([Über mich](https://sebastianhanisch.net/ueber-mich.html)). "
+    "Mehr zur Reihe: [Multi-Agenten-Koordination erklärt](https://sebastianhanisch.net/konzepte-multiagenten.html)."
 )
