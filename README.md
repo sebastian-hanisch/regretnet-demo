@@ -86,13 +86,13 @@ einzelne Bündel-Faktoren deutlich mehr - genau das Gitter verteidigt das Traini
 
 Der Softmax über alle k^n Zuteilungen ist der Engpass. Schon **ohne jede Anreiz-Nebenbedingung** (nur Makespan minimieren, 3000 Schritte, Netz 64×64,
 Typ-A-Instanzen) liegt die Lücke bei 0.4 % (n=3, k=2), 9.2 % (3, 3), 19.7 % (4, 2) und 19.3 % (4, 3); der gelernte Mechanismus bei n = 4, k = 2 hat 26.5 % Lücke und 3.0 min
-Regret (17.4 nach Runden). Ein größeres Netz mit deutlich mehr Schritten senkt die Lücke (einmalige Prototyp-Messung für n = 4, k = 3: 11 % mit Netz
-256×256 und 15000 Schritten), beseitigt sie aber nicht. Für n ≥ 5 müsste der Kopf faktorisiert werden (nicht gemessen).
+Regret (17.4 nach Runden). Ein größeres Netz mit deutlich mehr Schritten senkt die Lücke (nachgemessen für n = 4, k = 3 ohne Anreiz-Nebenbedingung: 5.3 % mit Netz
+256×256 und 15000 Schritten statt 19.3 % mit Netz 64×64 und 3000 Schritten; eine frühere, nicht reproduzierte Prototyp-Messung nannte 11 %), beseitigt sie aber nicht. Für n ≥ 5 müsste der Kopf faktorisiert werden (nicht gemessen).
 
 ## Was nicht funktioniert hat / Grenzen
 
 - **Kontext lernen (Typ B mit zufälliger Instanz):** der Kostenfaktor privat, die Instanz zufällig und dem Netz als Eingabe gegeben - das Netz lernte den Kontext
-  nicht (Lücke um 18 %). Deshalb hat Typ B eine **feste** Instanz. (Einmalige Prototyp-Messung.)
+  nicht (Lücke um 18 %). Deshalb hat Typ B eine **feste** Instanz. (Einmalige Prototyp-Messung, nicht reproduziert: der Code dazu liegt nicht im Repo.)
 - **Unbegrenzter Regret-Preis** (klassischer Augmented Lagrangian): Kollaps in einen Festpreis-artigen Zustand (Deutung), siehe oben.
 - **Regret nur als Untergrenze;** der Trainings-Regret unterschätzt den Test-Regret deutlich (der Gegenspieler im Training ist schwächer).
 - **Randomisierte Zuteilung:** die Wahrhaftigkeit gilt nur im Erwartungswert; Runden erhöht den Regret - relativ umso stärker, je kleiner er vorher war: Typ B von ×1.2 (κ ≤ 0.3) über ×4 (κ ≤ 3) bis ×9 (κ ≤ 10), im Handbeispiel ×18, in Typ A bis ×85.

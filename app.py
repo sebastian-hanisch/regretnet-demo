@@ -462,7 +462,7 @@ elif st.session_state.get("wall_open"):
     st.caption(
         "Das Netz muss unter $k^n$ Zuteilungen die beste wählen. Schon **ohne jeden Anreiz** (nur Makespan minimieren, 3000 Schritte, Netz 64×64, Typ-A-Instanzen) wird die "
         "Lücke ab n = 4 deutlich größer; mit Anreiz-Nebenbedingung kommt bei n = 4 ein großer Regret hinzu. Ein größeres Netz mit viel mehr Schritten senkt die Lücke "
-        "(einmalige Prototyp-Messung für n = 4, k = 3: 11 % mit Netz 256×256 und 15000 Schritten), beseitigt sie aber nicht. Für n ≥ 5 müsste der Kopf faktorisiert werden (nicht gemessen)."
+        "(nachgemessen für n = 4, k = 3 ohne Anreiz-Nebenbedingung: 5.3 % mit Netz 256×256 und 15000 Schritten statt 19.3 % mit Netz 64×64 und 3000 Schritten; eine frühere, nicht reproduzierte Prototyp-Messung nannte 11 %), beseitigt sie aber nicht. Für n ≥ 5 müsste der Kopf faktorisiert werden (nicht gemessen)."
     )
 else:
     st.button("🧱 Wand-Tabelle anzeigen (vorberechnet)", on_click=lambda: st.session_state.__setitem__("wall_open", True), key="wall_start")
@@ -473,7 +473,7 @@ with st.expander("🧪 Was nicht funktioniert hat und wo die Grenzen liegen"):
     st.markdown(
         """
 - **Kontext lernen (Typ B mit zufälliger Instanz):** der Kostenfaktor war privat, die Instanz zufällig und dem Netz als Eingabe gegeben. Das Netz lernte den
-  Kontext nicht (Lücke um 18 %) - deshalb hat Typ B eine **feste** Instanz. (Einmalige Prototyp-Messung.)
+  Kontext nicht (Lücke um 18 %) - deshalb hat Typ B eine **feste** Instanz. (Einmalige Prototyp-Messung, nicht reproduziert: der Code dazu liegt nicht im Repo.)
 - **Regret-Schätzer:** der Regret ist nur eine Untergrenze. Das Training unterschätzt ihn auf Test-Daten deutlich; das gleichmäßige λ-Gitter findet beim
   gelernten Netz fast nichts, die Gradientensuche mehr.
 - **Rundung:** die Zuteilung des Netzes ist randomisiert. Rundet man auf die wahrscheinlichste Zuteilung, steigt der Regret stark - die Wahrhaftigkeit gilt nur im Erwartungswert.
